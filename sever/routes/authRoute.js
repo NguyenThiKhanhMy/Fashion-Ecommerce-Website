@@ -1,14 +1,16 @@
 import express from "express";
-import {registerController, loginController} from "../controllers/authController.js";
+import {registerController, loginController,logoutController, getAllUser, getUserById} from "../controllers/authController.js";
 
 //router object
 const router = express.Router();
 
 //routing
-//REGISTER || METHOD POST
 router.route('/register').post(registerController);
-
-//REGISTER || METHOD POST
 router.route('/login').post(loginController);
+router.route('/logout').post(logoutController);
+router.route('/getalluser').get(getAllUser);
+router.route('/getuserbyid').get(getUserById);
+
+
 
 export default router;

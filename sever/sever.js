@@ -7,7 +7,7 @@ import bodyParser from 'body-parser';
 import colors from 'colors';
 import connectDatabase from './config/db.js';
 import authRoute from "./routes/authRoute.js";
-import {errorHandler} from './middlewares/errorHandler.js'
+import errorHandler from './middlewares/errorHandler.js'
 
 //App
 const app = express();

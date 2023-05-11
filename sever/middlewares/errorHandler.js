@@ -17,13 +17,23 @@ const errorHandler = (err, req, res, next) => {
         }
     }
 
+    // wrong jwt error
+    if (err.code === "JsonWebTokenError") {
+        const message = 'JWT Error';
+        err.statusCode = 400;
+    }
 
+    // jwt expire error
+    if (err.code === "JsonWebTokenError") {
+        const message = 'JWT Error';
+        err.statusCode = 400;
+    }
     
     res.status(err.statusCode).json({
         success: false,
         message: err.message,
         stack: err.stack,
     });
-}; 
+};
 
-export { errorHandler }
+export default errorHandler;

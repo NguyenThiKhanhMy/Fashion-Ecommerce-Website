@@ -1,60 +1,73 @@
 import userModel from "../models/userModel.js";
 import asyncHandler from "express-async-handler";
+import generateToken from "../config/jwtToken.js";
 
 //Register 
 export const registerController = asyncHandler(async (req, res,next) => {
-
-    const user = await userModel.create(req.body);
-    res.status(201).send({
-      success: true,
-      message: "Đăng ký thành công",
-      user,
+  const user = await userModel.create(req.body);
+  res.status(200).json({
+    success: true,
+    message: "Đăng ký thành công",
+    user,
     });
-  });
+});
 
 // Login 
 export const loginController = asyncHandler(async (req, res, next) => {
   const { username, password } = req.body;
-  find
+  if(!username || !password) {
+    return res.status(404).json({
+      success: false,
+      message: "Vui lòng nhập tài khoản mật khẩu",
+    });
+  }
+  const findUser =  await userModel.findOne({ username });
+  if(!findUser || !(await findUser.isPasswordMatched(password))) {
+    return res.status(404).json({
+      success: false,
+      message: "Tài khoản hoặc mật khẩu không đúng",
+    });   
+  }
+  res.status(200).json({
+    success: true,
+    message: "Đăng nhập thành công",
+    token: generateToken(findUser.id),
+    findUser,
+  }); 
 });
 
+//Log out
+export const logoutController= asyncHandler(async (req, res, next) => {
+  res.cookie("token", null, {
+      expires: new Date(Date.now()),
+      httpOnly: true,
+  });
 
+  res.status(200).json({
+      success: true,
+      message: "Đăng xuất thành công",
+  });
+});
 
-  // export const registerController = async (req, res,next) => {
-  //   // const { username, email, password } = req.body;
+//Get All User
+export const getAllUser = asyncHandler(async (req, res,next) => {
+  const getAllUser = await userModel.find();
+  if(!getAllUser) {
+    res.status(201).json({
+      message: "Hiện không có người dùng nào",
+    }); 
+  }
+  res.status(200).json(getAllUser);
+});
 
-  //   //check duplicate username
-  //   // const checkDuplicateUsername = await userModel.findOne({ username });
-  //   // if (checkDuplicateUsername) {
-  //   //   return res.status(500).send({
-  //   //     success: false,
-  //   //     message: "Tên đăng nhập đã được sử dụng, hãy chọn tên đăng nhập khác",
-  //   //   });
-  //   // }
-  
-  
-  //   // //check duplicate email
-  //   // const checkDuplicateEmail = await userModel.findOne({ email });
-  //   // if (checkDuplicateEmail) {
-  //   //   return res.status(200).send({
-  //   //     success: false,
-  //   //     message: "Email đã được đăng ký, hãy đăng nhập",
-  //   //   });
-  //   // }
-
-  //   const user = await userModel.create(req.body);
-  //   res.status(201).send({
-  //     success: true,
-  //     message: "Đăng ký thành công",
-  //     user,
-  //   });
-  // } catch (error) {
-  //   // console.log(error);
-  //   // res.status(500).send({
-  //   //   success: false,
-  //   //   message: "Đăng ký không thành công",
-  //   //   error,
-  //   // });
-  //   next(error);
-  // }
-  // });
+//Get User By Id
+export const getUserById = asyncHandler(async (req, res,next) => {
+  const { id } = req.body;
+  const getUserById = await userModel.findById(id);
+  if(!getUserById) {
+    res.status(201).json({
+      message: "Không tìm thấy người dùng phù hợp",
+    }); 
+  }
+  res.status(200).json(getUserById);
+});
