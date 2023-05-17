@@ -1,0 +1,33 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: lighter;
+}
+
+a{
+  text-decoration: none;
+  display: inline-block;
+}
+
+.top-header{
+  background-color: #f5e2c7;
+  height: 2rem;
+}
+
+.subnavbar{
+  height:5rem;
+}
+
+.subnavbar .input-group-text{
+  background-color: #fff;
+}
+
+.navbar {
+  height: 5rem;
+}

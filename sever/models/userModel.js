@@ -19,6 +19,7 @@ const userSchema = new mongoose.Schema(
         required: [true, "Vui lòng nhập Email"],
         unique: true,
     },
+    
     role: {
       type: Number,
       default: 0,
