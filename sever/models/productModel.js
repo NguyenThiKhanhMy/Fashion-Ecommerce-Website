@@ -8,30 +8,38 @@ const userSchema = new mongoose.Schema(
             unique: true,
           },
           
-      sescribe: {
+        describe: {
             type: String,
             required:  [true, "Vui lòng nhập mô tả sản phẩm"],
           },
-      quantity: {
+        quantity: {
             type: Number,
             required:  [true, "Vui lòng nhập mô tả sản phẩm"],
           },
-      price: {
+        price: {
             type: Number,
             required: [true, "Please enter product price"]
         },
-      images: [
-          {
-              public_id: {
-                  type: String,
-                  required: true
-              },
-              url: {
-                  type: String,
-                  required: true
+        images: [
+            {
+                public_id: {
+                    type: String,
+                    required: true
+                },
+                url: {
+                    type: String,
+                    required: true
               }
           }
-      ],
-      
+        ],
+        category: {
+            type: Schema.Types.ObjectId,
+            ref: 'Category',
+            default: null
+        },
+        isActive: {
+            type: Boolean,
+            default: true
+        },
     }
 )

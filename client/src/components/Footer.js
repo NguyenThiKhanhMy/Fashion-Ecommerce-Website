@@ -28,8 +28,7 @@ const Footer = () => {
             <div className="text-center p-4">
             <Link className="text-reset" to="https://getbootstrap.com/"> © 2021 Copyright: Getbootstrap.com</Link>
             </div>
-
-</footer>
+        </footer>
         </>
     )
 }
