@@ -1,5 +1,6 @@
 import React from "react";
 import ShoppingCard from "../components/ShoppingCard";
+import Banner from "../components/Banner";
 
 const ShoppingCart = () => {
     return (

@@ -82,6 +82,7 @@ const Home = () => {
             <section className="m-5">
                 <h3 className="title text-center pb-3">ĐĂNG KÝ ĐỂ CẬP NHẬT NHỮNG THÔNG TIN MỚI NHẤT CỦA CHÚNG TÔI</h3>
                 <p className="text-center">Đăng ký để nhận ngay 10% giảm giá khi mua hàng lần đầu tiên tại website,cập nhật nhanh chóng các thông tin mới nhất về sản phẩm, các chương trình khuyến mãi và các sự kiện độc quyền.</p>
+                <a href="/SignUp" className="d-flex justify-content-center my-4"><button type="button" className="btn btn-dark text-uppercase product-btn">Đăng ký ngay</button></a>
             </section>
         </>
     )

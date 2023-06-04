@@ -31,7 +31,9 @@ const Header = () => {
                             <div className="header-upper-links d-flex gap-4">
                                 <Link to="/WishList" className="text-dark" style={{fontSize: "25px"}}><FiHeart/></Link>
                                 <Link to="/ShoppingCart" className="text-dark" style={{fontSize: "25px"}}><FiShoppingCart/></Link>
-                                <Link to="/User" className="text-dark" style={{fontSize: "25px"}}><BiUser/></Link>
+                                <Link to="/Login" className="text-dark" style={{fontSize: "25px"}}>
+                                    <BiUser/>
+                                </Link>
                             </div>
                             </div>
                         </div>
@@ -45,7 +47,7 @@ const Header = () => {
                                 <NavLink className="text-dark" to="/">Hàng Mới Về</NavLink>
                                 <NavLink className="text-dark" to="/">Sản Phẩm</NavLink>
                                 <NavLink className="text-dark" to="/Blog">Bài Viết</NavLink>
-                                <NavLink className="text-dark" to="/">Giới thiệu</NavLink>
+                                <NavLink className="text-dark" to="/About">Giới thiệu</NavLink>
                             </div>
                         </div>
                     </div>
@@ -56,3 +58,19 @@ const Header = () => {
 }
 
 export default Header;
+
+                                    {/* <div role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"> */}
+                                    // <Link to="/Login" className="text-dark"><BiUser/></Link>
+                                    {/* </div> */}
+                                    {/* <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        <li>
+                                            <Link className="dropdown-item py-1 mb-1" style={{ height: "auto", lineHeight: "20px" }} to="/">
+                                                Thông tin cá nhân
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link className="dropdown-item py-1 mb-1" style={{ height: "auto", lineHeight: "20px" }} to="/">
+                                                Đăng xuất
+                                            </Link>
+                                        </li>
+                                    </div> */}

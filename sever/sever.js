@@ -6,7 +6,8 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import colors from 'colors';
 import connectDatabase from './config/db.js';
-import authRoute from "./routes/authRoute.js";
+import userRoute from "./routes/userRoute.js";
+// import blogRoute from "./routes/blogRouter.js";
 import errorHandler from './middlewares/errorHandler.js'
 
 //App
@@ -25,7 +26,8 @@ app.use(bodyParser.json());
 connectDatabase();
 
 //Route
-app.use('/api/v1/auth', authRoute);
+app.use('/api/v1/user', userRoute);
+// app.use('/api/v1/blog', blogRoute);
 
 //errorHandler
 app.use(errorHandler);
