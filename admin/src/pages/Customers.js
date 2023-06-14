@@ -19,10 +19,6 @@ const columns = [
     title: "Trạng thái hoạt động",
     dataIndex: "isActive",
   },
-  {
-    title: "Role",
-    dataIndex: "role",
-  },
 ];
 
 const Customers = () => {

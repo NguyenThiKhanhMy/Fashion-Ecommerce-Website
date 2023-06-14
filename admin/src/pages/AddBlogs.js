@@ -9,20 +9,16 @@ import * as yup from "yup";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
-import {
-  createBlogs,
-  getABlog,
-  resetState,
-  updateABlog,
-} from "../features/blogs/blogSlice";
-import { getCategories } from "../features/bcategory/bcategorySlice";
+import { createBlogs, getABlog, resetState, updateABlog} from "../features/blogs/blogSlice";
+import { getCategories } from "../features/blogCategory/blogCategorySlice";
 
 let schema = yup.object().shape({
-  title: yup.string().required("Title is Required"),
-  description: yup.string().required("Description is Required"),
-  category: yup.string().required("Category is Required"),
+  title: yup.string().required("Tiêu đề không để trống"),
+  description: yup.string().required("Mô tả không để trống"),
+  category: yup.string().required("Thể loại không để trống"),
 });
-const Addblog = () => {
+
+const AddBlog = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -30,17 +26,7 @@ const Addblog = () => {
   const imgState = useSelector((state) => state.upload.images);
   const bCatState = useSelector((state) => state.bCategory.bCategories);
   const blogState = useSelector((state) => state.blogs);
-  const {
-    isSuccess,
-    isError,
-    isLoading,
-    createdBlog,
-    blogName,
-    blogDesc,
-    blogCategory,
-    blogImages,
-    updatedBlog,
-  } = blogState;
+  const {isSuccess, isError, isLoading, createdBlog, blogName, blogDesc, blogContent, blogCategory, blogImages, updatedBlog,} = blogState;
   useEffect(() => {
     if (getBlogId !== undefined) {
       dispatch(getABlog(getBlogId));
@@ -57,14 +43,14 @@ const Addblog = () => {
 
   useEffect(() => {
     if (isSuccess && createdBlog) {
-      toast.success("Blog Added Successfullly!");
+      toast.success("Thêm thành công!");
     }
     if (isSuccess && updatedBlog) {
-      toast.success("Blog Updated Successfullly!");
+      toast.success("Sửa thành công!");
       navigate("/admin/blog-list");
     }
     if (isError) {
-      toast.error("Something Went Wrong!");
+      toast.error("Lỗi!");
     }
   }, [isSuccess, isError, isLoading]);
 
@@ -85,8 +71,9 @@ const Addblog = () => {
     initialValues: {
       title: blogName || "",
       description: blogDesc || "",
+      content: blogContent || "",
       category: blogCategory || "",
-      images: "",
+      images: blogImages||"",
     },
     validationSchema: schema,
     onSubmit: (values) => {
@@ -107,33 +94,19 @@ const Addblog = () => {
   return (
     <div>
       <h3 className="mb-4 title">
-        {getBlogId !== undefined ? "Edit" : "Add"} Blog
+        {getBlogId !== undefined ? "Sửa" : "Thêm"} bài viết
       </h3>
 
       <div className="">
         <form action="" onSubmit={formik.handleSubmit}>
           <div className="mt-4">
-            <CustomInput
-              type="text"
-              label="Enter Blog Title"
-              name="title"
-              onChng={formik.handleChange("title")}
-              onBlr={formik.handleBlur("title")}
-              val={formik.values.title}
-            />
+            <CustomInput type="text" label="Nhập tiêu đề bài viết" name="title" onChng={formik.handleChange("title")} onBlr={formik.handleBlur("title")} val={formik.values.title}/>
           </div>
           <div className="error">
             {formik.touched.title && formik.errors.title}
           </div>
-          <select
-            name="category"
-            onChange={formik.handleChange("category")}
-            onBlur={formik.handleBlur("category")}
-            value={formik.values.category}
-            className="form-control py-3  mt-3"
-            id=""
-          >
-            <option value="">Select Blog Category</option>
+          <select name="Thể loại" onChange={formik.handleChange("category")} onBlur={formik.handleBlur("category")} value={formik.values.category}  className="form-control py-3  mt-3" id="">
+            <option value="">Chọn thể loại</option>
             {bCatState.map((i, j) => {
               return (
                 <option key={j} value={i.title}>
@@ -145,15 +118,21 @@ const Addblog = () => {
           <div className="error">
             {formik.touched.category && formik.errors.category}
           </div>
+          <div className="mt-4">
+            <CustomInput type="text" label="Nhập mô tả" name="description" onChng={formik.handleChange("description")} onBlr={formik.handleBlur("description")} val={formik.values.description}/>
+          </div>
+          <div className="error">
+            {formik.touched.description && formik.errors.description}
+          </div>
           <ReactQuill
             theme="snow"
             className="mt-3"
-            name="description"
-            onChange={formik.handleChange("description")}
-            value={formik.values.description}
+            name="content"
+            onChange={formik.handleChange("content")}
+            value={formik.values.content}
           />
           <div className="error">
-            {formik.touched.description && formik.errors.description}
+            {formik.touched.content && formik.errors.content}
           </div>
           <div className="bg-white border-1 p-5 text-center mt-3">
             <Dropzone
@@ -164,7 +143,7 @@ const Addblog = () => {
                   <div {...getRootProps()}>
                     <input {...getInputProps()} />
                     <p>
-                      Drag 'n' drop some files here, or click to select files
+                      Thêm ảnh tại đây
                     </p>
                   </div>
                 </section>
@@ -191,7 +170,7 @@ const Addblog = () => {
             className="btn btn-success border-0 rounded-3 my-5"
             type="submit"
           >
-            {getBlogId !== undefined ? "Edit" : "Add"} Blog
+            {getBlogId !== undefined ? "Sửa" : "Thêm"} bài viết
           </button>
         </form>
       </div>
@@ -199,4 +178,4 @@ const Addblog = () => {
   );
 };
 
-export default Addblog;
+export default AddBlog;

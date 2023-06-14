@@ -67,24 +67,14 @@ const MainLayout = () => {
                   label: "Danh sách sản phẩm",
                 },
                 {
-                  key: "brand",
-                  icon: <SiBrandfolder className="fs-4" />,
-                  label: "Thương hiệu",
-                },
-                {
-                  key: "list-brand",
-                  icon: <SiBrandfolder className="fs-4" />,
-                  label: "Danh sách thương hiệu ",
-                },
-                {
-                  key: "category",
+                  key: "product-category-list",
                   icon: <BiCategoryAlt className="fs-4" />,
                   label: "Phân loại",
                 },
                 {
-                  key: "list-category",
+                  key: "add-product-category",
                   icon: <BiCategoryAlt className="fs-4" />,
-                  label: "Danh sách phân loại",
+                  label: "Thêm danh mục sản phẩm",
                 },
               ],
             },
@@ -99,24 +89,24 @@ const MainLayout = () => {
               label: "Blogs",
               children: [
                 {
-                  key: "blog",
-                  icon: <ImBlog className="fs-4" />,
-                  label: "Thêm bài viết",
-                },
-                {
                   key: "blog-list",
                   icon: <FaBloggerB className="fs-4" />,
                   label: "Danh sách bài viết",
                 },
                 {
-                  key: "blog-category",
+                  key: "add-blog",
                   icon: <ImBlog className="fs-4" />,
-                  label: "Thêm thể loại",
+                  label: "Thêm bài viết",
                 },
                 {
                   key: "blog-category-list",
                   icon: <FaBloggerB className="fs-4" />,
-                  label: "Blog Category List",
+                  label: "Danh sách thể loại",
+                },
+                {
+                  key: "add-blog-category",
+                  icon: <ImBlog className="fs-4" />,
+                  label: "Thêm thể loại",
                 },
               ],
             },
@@ -177,8 +167,7 @@ const MainLayout = () => {
                   <Link
                     className="dropdown-item py-1 mb-1"
                     style={{ height: "auto", lineHeight: "20px" }}
-                    to="/"
-                  >
+                    to="/">
                     Signout
                   </Link>
                 </li>

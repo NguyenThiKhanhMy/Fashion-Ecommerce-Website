@@ -7,7 +7,7 @@ const blogSchema = new mongoose.Schema(
         required:  [true, "Vui lòng nhập tiêu đề"],
         unique: true,
       },
-      describe: {
+      description: {
         type: String,
         required:  [true, "Vui lòng nhập mô tả bài viết"],
       },
@@ -19,22 +19,20 @@ const blogSchema = new mongoose.Schema(
         type: String,
         default: "Admin",
       },
-      date: {
-        type: Date,
+      category: {
+        type: String,
         required: true,
       },
-      images: [
-        {
-            public_id: {
-                type: String,
-                required: true
-            },
-            url: {
-                type: String,
-                required: true
-            }
-        }
-    ],
+      images: [],  
+    },
+    {
+      toJSON: {
+        virtuals: true,
+      },
+      toObject: {
+        virtuals: true,
+      },
+      timestamps: true,
     }
 )
 export default mongoose.model("blogs", blogSchema);

@@ -1,5 +1,7 @@
 import blogModel from "../models/blogModel.js";
 import asyncHandler from "express-async-handler";
+import cloudinaryUploadImg from "../utils/cloudinary.js";
+import fs from "fs";
 
 export const createBlog = asyncHandler(async (req, res) => {
   try {
@@ -9,6 +11,7 @@ export const createBlog = asyncHandler(async (req, res) => {
     throw new Error(error);
   }
 });
+
 
 export const updateBlog = asyncHandler(async (req, res) => {
   const { id } = req.params;
@@ -63,7 +66,6 @@ export const deleteBlog = asyncHandler(async (req, res) => {
 
 export const uploadImages = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  validateMongoDbId(id);
   try {
     const uploader = (path) => cloudinaryUploadImg(path, "images");
     const urls = [];
@@ -91,4 +93,3 @@ export const uploadImages = asyncHandler(async (req, res) => {
     throw new Error(error);
   }
 });
-
