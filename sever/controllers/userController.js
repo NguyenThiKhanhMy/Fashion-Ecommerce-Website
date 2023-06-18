@@ -202,3 +202,16 @@ export const resetPassword = asyncHandler(async (req, res) => {
   res.json(user);
 });
 
+export const updatePassword = asyncHandler(async (req, res) => {
+  const { _id } = req.user;
+  const { password } = req.body;
+  const user = await userModel.findById(_id);
+  if (password) {
+    user.password = password;
+    const updatedPassword = await user.save();
+    res.json(updatedPassword);
+  } else {
+    res.json(user);
+  }
+});
+

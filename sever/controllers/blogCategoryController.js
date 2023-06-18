@@ -32,16 +32,6 @@ export const deleteCategory = asyncHandler(async (req, res) => {
   }
 });
 
-// export const deleteCategory = asyncHandler(async (req, res) => {
-//   const { id } = req.params;
-//   try {
-//    const deletedCategory = await blogCategoryModel.findByIdAndDelete(id);
-//    res.status(200).json(deletedCategory);
-//   } catch (error) {
-//     throw new Error(error);
-//   }
-//  });
-
 export const getACategory = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
   try {

@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {NavLink, Link} from "react-router-dom";
 import '../App.css';
 import {FiShoppingCart, FiHeart, FiSearch} from "react-icons/fi";
 import {BiUser} from "react-icons/bi";
+import { useDispatch,useSelector } from "react-redux";
 
 const Header = () => {
+    const dispatch = useDispatch();
+    const [total,setTotal] = useState(null);
+    const userState = useSelector(state => state.user)
     return (
         <>
             <header>
@@ -12,27 +16,36 @@ const Header = () => {
                     <div className="text-secondary"><p className="mb-0"><small>Miễn phí giao hàng toàn quốc</small></p></div>
                 </section>
                 <section className="sub-navbar d-flex align-items-center border-bottom">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col">
                                 <h2 style={{marginBottom: "0"}}>
                                     <Link to="/" className="text-dark">Adore</Link>
                                 </h2>
                             </div>
-                        <div class="col-3">
-                            <div className="input-group mt-2">
+                        <div className="col-3">
+                            <div className="input-group mt-1">
                                 <input type="text" className="form-control rounded-3" placeholder="Tìm kiếm sản phẩm" aria-label="Tìm kiếm sản phẩm" />
                                 <span className="input-group-text border-0" id="basic-adon2" style={{fontSize: "25px"}}>
                                     <FiSearch/>
                                 </span>
                             </div>
                         </div>
-                        <div class="col-md-auto  d-flex align-items-center">
+                        <div className="col-md-auto  d-flex align-items-center">
                             <div className="header-upper-links d-flex gap-4">
                                 <Link to="/WishList" className="text-dark" style={{fontSize: "25px"}}><FiHeart/></Link>
                                 <Link to="/ShoppingCart" className="text-dark" style={{fontSize: "25px"}}><FiShoppingCart/></Link>
-                                <Link to="/Login" className="text-dark" style={{fontSize: "25px"}}>
+                                <Link to={userState.user === "" ? "/Login" : ""} className="text-dark d-flex mt-2 gap-1" style={{fontSize: "25px"}}>
                                     <BiUser/>
+                                    {!userState.user ? (
+                                    <p className="">Login</p>) : (
+                                    <>
+                                    <p className="dropdown-menu">{userState.user.username}</p>
+                                        <Link className="dropdown-item" to="/">Action</Link>
+                                        <a className="dropdown-item" href="#">Another action</a>
+                                        <a className="dropdown-item" href="#">Something else here</a>
+                                        </>
+                                    )}
                                 </Link>
                             </div>
                             </div>
@@ -58,19 +71,3 @@ const Header = () => {
 }
 
 export default Header;
-
-                                    {/* <div role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"> */}
-                                    // <Link to="/Login" className="text-dark"><BiUser/></Link>
-                                    {/* </div> */}
-                                    {/* <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                        <li>
-                                            <Link className="dropdown-item py-1 mb-1" style={{ height: "auto", lineHeight: "20px" }} to="/">
-                                                Thông tin cá nhân
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <Link className="dropdown-item py-1 mb-1" style={{ height: "auto", lineHeight: "20px" }} to="/">
-                                                Đăng xuất
-                                            </Link>
-                                        </li>
-                                    </div> */}

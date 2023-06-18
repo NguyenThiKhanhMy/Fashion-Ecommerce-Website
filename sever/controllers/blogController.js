@@ -1,6 +1,5 @@
 import blogModel from "../models/blogModel.js";
 import asyncHandler from "express-async-handler";
-import cloudinaryUploadImg from "../utils/cloudinary.js";
 import fs from "fs";
 
 export const createBlog = asyncHandler(async (req, res) => {
@@ -15,7 +14,6 @@ export const createBlog = asyncHandler(async (req, res) => {
 
 export const updateBlog = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  validateMongoDbId(id);
   try {
     const updateBlog = await blogModel.findByIdAndUpdate(id, req.body, {
       new: true,
@@ -28,7 +26,6 @@ export const updateBlog = asyncHandler(async (req, res) => {
 
 export const getBlog = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  validateMongoDbId(id);
   try {
     const getBlog = await blogModel.findById(id)
     const updateViews = await blogModel.findByIdAndUpdate(
@@ -55,7 +52,6 @@ export const getAllBlogs = asyncHandler(async (req, res) => {
 
 export const deleteBlog = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  validateMongoDbId(id);
   try {
     const deletedBlog = await blogModel.findByIdAndDelete(id);
     res.json(deletedBlog);
@@ -64,32 +60,32 @@ export const deleteBlog = asyncHandler(async (req, res) => {
   }
 });
 
-export const uploadImages = asyncHandler(async (req, res) => {
-  const { id } = req.params;
-  try {
-    const uploader = (path) => cloudinaryUploadImg(path, "images");
-    const urls = [];
-    const files = req.files;
-    for (const file of files) {
-      const { path } = file;
-      const newpath = await uploader(path);
-      console.log(newpath);
-      urls.push(newpath);
-      fs.unlinkSync(path);
-    }
-    const findBlog = await blogModel.findByIdAndUpdate(
-      id,
-      {
-        images: urls.map((file) => {
-          return file;
-        }),
-      },
-      {
-        new: true,
-      }
-    );
-    res.json(findBlog);
-  } catch (error) {
-    throw new Error(error);
-  }
-});
+// export const uploadImages = asyncHandler(async (req, res) => {
+//   const { id } = req.params;
+//   try {
+//     const uploader = (path) => cloudinaryUploadImg(path, "images");
+//     const urls = [];
+//     const files = req.files;
+//     for (const file of files) {
+//       const { path } = file;
+//       const newpath = await uploader(path);
+//       console.log(newpath);
+//       urls.push(newpath);
+//       fs.unlinkSync(path);
+//     }
+//     const findBlog = await blogModel.findByIdAndUpdate(
+//       id,
+//       {
+//         images: urls.map((file) => {
+//           return file;
+//         }),
+//       },
+//       {
+//         new: true,
+//       }
+//     );
+//     res.json(findBlog);
+//   } catch (error) {
+//     throw new Error(error);
+//   }
+// });

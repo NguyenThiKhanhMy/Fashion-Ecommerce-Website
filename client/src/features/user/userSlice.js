@@ -64,7 +64,7 @@ export const userSlice = createSlice({
       state.isLoading = false;
       state.isSuccess = true;
       state.user = action.payload;
-      state.message = "success";
+      state.message = "Thành công";
       if (state.isSuccess === true) {
         toast.info("Success")
       }

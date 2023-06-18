@@ -23,6 +23,7 @@ const Login = () => {
         validationSchema: loginSchema,
         onSubmit: (values) => {
             dispatch(loginUserSlice(values));
+                navigate('/')
           },
     });
 

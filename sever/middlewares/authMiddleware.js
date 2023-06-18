@@ -12,7 +12,6 @@ export const authMiddleware = asyncHandler(async(req, res,next) => {
                 const user = await userModel.findById(decoded?.id);
                 req.user = user;
                 next();
-                // console.log(decoded)
             }
         } catch (error) {
             throw new Error("Authorized token đã hết hạn. Vui lòng đăng nhập lại")

@@ -23,7 +23,8 @@ const blogSchema = new mongoose.Schema(
         type: String,
         required: true,
       },
-      images: [],  
+      images: [
+      ],  
     },
     {
       toJSON: {

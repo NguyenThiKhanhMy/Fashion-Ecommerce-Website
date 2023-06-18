@@ -9,19 +9,19 @@ import CustomModal from "../components/CustomModal";
 
 const columns = [
   {
-    title: "STT",
+    title: "SNo",
     dataIndex: "key",
   },
   {
-    title: "Tiêu đề",
+    title: "Title",
     dataIndex: "name",
   },
   {
-    title: "Thể loại",
+    title: "Category",
     dataIndex: "category",
   },
   {
-    title: "",
+    title: "Action",
     dataIndex: "action",
   },
 ];
@@ -43,9 +43,9 @@ const Bloglist = () => {
     dispatch(getBlogs());
   }, []);
   const getBlogState = useSelector((state) => state.blogs.blogs);
-  const data = [];
+  const data1 = [];
   for (let i = 0; i < getBlogState.length; i++) {
-    data.push({
+    data1.push({
       key: i + 1,
       name: getBlogState[i].title,
       category: getBlogState[i].category,
@@ -78,9 +78,9 @@ const Bloglist = () => {
   };
   return (
     <div>
-      <h3 className="mb-4 title">Danh sách bài viết</h3>
+      <h3 className="mb-4 title">Blogs List</h3>
       <div>
-        <Table columns={columns} dataSource={data} />
+        <Table columns={columns} dataSource={data1} />
       </div>
       <CustomModal
         hideModal={hideModal}
@@ -88,7 +88,7 @@ const Bloglist = () => {
         performAction={() => {
           deleteBlog(blogId);
         }}
-        title="Bạn có xác nhận xóa bài viết?"
+        title="Are you sure you want to delete this blog?"
       />
     </div>
   );

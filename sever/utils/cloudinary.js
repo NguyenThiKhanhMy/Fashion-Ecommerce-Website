@@ -1,14 +1,10 @@
 import cloudinary from "cloudinary";
 
-// cloudinary.config({
-//   cloud_name: process.env.CLOUD_NAME,
-//   api_key: process.env.API_KEY,
-//   api_secret: process.env.SECRET_KEY,
-// });
 cloudinary.config({ 
   cloud_name: 'dha2rpzzk', 
   api_key: '933864956445281', 
   api_secret: 'v_etHtpsTn1k41PYXsEmolv0tE0' 
+  
 });
 
 export const cloudinaryUploadImg = async (fileToUploads) => {

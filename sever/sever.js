@@ -9,7 +9,7 @@ import cookieParser from "cookie-parser";
 import connectDatabase from './config/db.js';
 import userRoute from "./routes/userRoute.js";
 import blogRoute from "./routes/blogRoute.js";
-// import uploadRoute from "./routes/uploadRoute.js"
+import uploadRoute from "./routes/uploadRoute.js"
 import productCategoryRoute from "./routes/productCategoryRoute.js"
 import errorHandler from './middlewares/errorHandler.js'
 import blogCategoryRouter from"./routes/blogCategoryRoute.js";
@@ -33,7 +33,7 @@ connectDatabase();
 
 //Route
 app.use('/api/v1/user', userRoute);
-// app.use('/api/v1/upload', uploadRoute);
+app.use('/api/v1/upload', uploadRoute);
 app.use('/api/v1/blog', blogRoute);
 app.use("/api/v1/blogcategory", blogCategoryRouter);
 app.use("/api/v1/productcategory", productCategoryRoute);
