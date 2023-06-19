@@ -37,15 +37,16 @@ const Header = () => {
                                 <Link to="/ShoppingCart" className="text-dark" style={{fontSize: "25px"}}><FiShoppingCart/></Link>
                                 <Link to={userState.user === "" ? "/Login" : ""} className="text-dark d-flex mt-2 gap-1" style={{fontSize: "25px"}}>
                                     <BiUser/>
-                                    {!userState.user ? (
-                                    <p className="">Login</p>) : (
-                                    <>
-                                    <p className="dropdown-menu">{userState.user.username}</p>
-                                        <Link className="dropdown-item" to="/">Action</Link>
-                                        <a className="dropdown-item" href="#">Another action</a>
-                                        <a className="dropdown-item" href="#">Something else here</a>
-                                        </>
-                                    )}
+                                    {
+                                        !userState.user ? (<p className="">Login</p>) : (<p className="">{userState.user.username}</p>)
+                                        }
+                                                                            {/* // <>
+                                    // <p className="dropdown-menu">{userState.user.username}</p>
+                                    //     <Link className="dropdown-item" to="/">Action</Link>
+                                    //     <a className="dropdown-item" href="#">Another action</a>
+                                    //     <a className="dropdown-item" href="#">Something else here</a>
+                                    //     </>
+                                    // )} */}
                                 </Link>
                             </div>
                             </div>

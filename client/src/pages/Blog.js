@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import BlogCard from "../components/BlogCard";
 import {BsSearch} from "react-icons/bs";
 import Banner from "../components/Banner"
+import {useDispatch, useSelector} from "react-redux"
+import { getBlogs } from "../features/blogs/blogSlice";
 
 const Blog = () => {
+    const blogState = useSelector((state) => state?.blog?.blog);
+    const dispatch = useDispatch();
+    useEffect(() => {
+      dispatch(getBlogs());
+    }, []);
     return (
         <>
         <section id="main-content" className="blog-page">
@@ -11,19 +18,23 @@ const Blog = () => {
             <div className="container mt-3">
                 <div className="row">
                     <div className="col-lg-8 col-md-12 left-box">
-                        <BlogCard/>
-                        <BlogCard/>
-                        <BlogCard/>
-                        <BlogCard/>
-                                        
+                        {blogState?.map((item,index) => {
+                            return (
+                                <div key={index}>
+                                <BlogCard id={item?._id} title={item?.title} description={item?.description} image ={item?.images[0].url}/> 
+                            </div>
+                            )
+                            })
+                        }
+
                 <ul className="pagination pagination-primary m-4">
                     <li className="page-item"><p><a className="page-link" href="/">Previous</a></p></li>
                     <li className="page-item active"><p><a className="page-link" href="/">1</a></p></li>
                     <li className="page-item"><p><a className="page-link" href="/">2</a></p></li>
                     <li className="page-item"><p><a className="page-link" href="/">3</a></p></li>
                     <li className="page-item"><p><a className="page-link" href="/">Next</a></p></li>
-                </ul>                
-            </div>
+                </ul>  
+            </div>              
             <div className="col-lg-4 col-md-12 right-box mt-4">
                 <div className="card border-0">
                     <div className="body search pb-4">

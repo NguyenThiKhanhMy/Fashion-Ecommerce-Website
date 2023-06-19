@@ -104,6 +104,7 @@ export const blogSlice = createSlice({
         state.isSuccess = true;
         state.blogName = action.payload.title;
         state.blogDesc = action.payload.description;
+        state.blogContent = action.payload.content;
         state.blogCategory = action.payload.category;
         state.blogImages = action.payload.images;
       })

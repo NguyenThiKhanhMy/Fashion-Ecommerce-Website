@@ -6,7 +6,7 @@ import Dropzone from "react-dropzone";
 import { delImg, uploadImg } from "../features/upload/uploadSlice";
 import { toast } from "react-toastify";
 import * as yup from "yup";
-import {  useNavigate } from "react-router-dom";
+import {  useNavigate,useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import {createBlogs, getABlog, resetState , updateABlog} from "../features/blogs/blogSlice";
@@ -21,24 +21,38 @@ let schema = yup.object().shape({
 const Addblog = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+  const getBlogId = location.pathname.split("/")[3];
   const [images, setImages] = useState([]);
+  const imgState = useSelector((state) => state.upload.images);
+  const bCatState = useSelector((state) => state.bCategory.bCategories);
+  const blogState = useSelector((state) => state.blogs);
+  const {isSuccess,isError,isLoading,createdBlog,blogName,blogDesc, blogContent,blogCategory,blogImages,updatedBlog,} = blogState;
+
+  useEffect(() => {
+    if (getBlogId !== undefined) {
+      dispatch(getABlog(getBlogId));
+      img.push(blogImages);
+    } else {
+      dispatch(resetState());
+    }
+  }, [getBlogId]);
 
   useEffect(() => {
     dispatch(resetState());
     dispatch(getCategories());
   }, []);
 
-  const imgState = useSelector((state) => state.upload.images);
-  const bCatState = useSelector((state) => state.bCategory.bCategories);
-  const blogState = useSelector((state) => state.blogs);
-  const {isError, isLoading, isSuccess, createdBlog} = blogState;
-
   useEffect(() => {
     if (isSuccess && createdBlog) {
-      toast.success("Blog Added Successfullly!");
+      toast.success("Thêm thành công!");
+    }
+    if (isSuccess && updatedBlog) {
+      toast.success("Sửa thành công!");
+      navigate("/admin/blog-list");
     }
     if (isError) {
-      toast.error("Something Went Wrong!");
+      toast.error("Lỗi!");
     }
   }, [isSuccess, isError, isLoading]);
 
@@ -54,26 +68,34 @@ const Addblog = () => {
     formik.values.images = img;
   }, [img]);
   const formik = useFormik({
+    // enableReinitialize: true,
     initialValues: {
-      title: "",
-      description: "",
-      content:"",
+      title: blogName || "",
+      description: blogDesc || "",
+      content: blogContent || "",
+      category: blogCategory || "",
       images: "",
     },
     validationSchema: schema,
     onSubmit: (values) => {
-        dispatch(createBlogs(values));
-        formik.resetForm();
-        setTimeout(() => {
-        navigate("/admin/blog-list")
-      }, 3000);
-    },
+    if (getBlogId !== undefined) {
+      const data = { id: getBlogId, blogData: values };
+      dispatch(updateABlog(data));
+      dispatch(resetState());
+    } else {
+      dispatch(createBlogs(values));
+      formik.resetForm();
+      setTimeout(() => {
+        dispatch(resetState());
+      }, 300);
+    }
+  },
   });
 
   return (
     <div>
       <h3 className="mb-4 title">
-        Add Blog
+      {getBlogId !== undefined ? "Sửa" : "Thêm"} bài viết
       </h3>
 
       <div className="">
@@ -81,7 +103,7 @@ const Addblog = () => {
           <div className="mt-4">
             <CustomInput
               type="text"
-              label="Enter Blog Title"
+              label="Nhập tiêu đề"
               name="title"
               onChng={formik.handleChange("title")}
               onBlr={formik.handleBlur("title")}
@@ -99,7 +121,7 @@ const Addblog = () => {
             className="form-control py-3  mt-3"
             id=""
           >
-            <option value="">Select Blog Category</option>
+            <option value="">Chọn thể loại</option>
             {bCatState.map((i, j) => {
               return (
                 <option key={j} value={i.title}>
@@ -114,7 +136,7 @@ const Addblog = () => {
           <div className="mt-4">
             <CustomInput
               type="text"
-              label="Enter Blog Description"
+              label="Nhập mô tả"
               name="description"
               onChng={formik.handleChange("description")}
               onBlr={formik.handleBlur("description")}
@@ -148,7 +170,7 @@ const Addblog = () => {
                   <div {...getRootProps()}>
                     <input {...getInputProps()} />
                     <p>
-                      Drag 'n' drop some files here, or click to select files
+                      Chọn file hình ảnh
                     </p>
                   </div>
                 </section>
@@ -175,7 +197,7 @@ const Addblog = () => {
             className="btn btn-success border-0 rounded-3 my-5"
             type="submit"
           >
-           Add Blog
+            {getBlogId !== undefined ? "Sửa" : "Thêm"} bài viết
           </button>
         </form>
       </div>

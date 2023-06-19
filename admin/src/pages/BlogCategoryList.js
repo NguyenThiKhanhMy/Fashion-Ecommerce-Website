@@ -67,12 +67,6 @@ const BlogCategoryList = () => {
   return (
     <div>
       <h3 className="mb-4 title">Danh sách thể loại</h3>
-      {/* <button className="border-0 float-end mx-5 my-2 bg-transparent ">
-        <Link to={`/admin/add-blog-category/`} className="fs-5 d-flex gap-3 align-items-center text-decoration-none text-dark">
-            <AiOutlineFileAdd/>
-            <p className="mt-3">Thêm</p>
-          </Link>
-      </button> */}
       <div>
         <Table columns={columns} dataSource={data} />
       </div>
