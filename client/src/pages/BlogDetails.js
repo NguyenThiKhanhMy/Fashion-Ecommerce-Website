@@ -1,8 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Comments from "../components/Comment";
+import { useDispatch, useSelector } from "react-redux";
+import { getABlog } from "../features/blogs/blogSlice";
+import {  useNavigate,useLocation } from "react-router-dom"
 
 
 const BlogDetail = () => {
+    const blogState = useSelector((state) => state?.blog?.blogdetail);
+    const dispatch = useDispatch();
+    const location = useLocation();
+    const getBlogId = location.pathname.split("/")[3];
+    useEffect(() => {
+      dispatch(getABlog(getBlogId));
+    }, []);
     return (
         <>
         <div class="blog-single gray-bg">

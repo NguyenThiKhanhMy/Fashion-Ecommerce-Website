@@ -10,8 +10,9 @@ const getBlogs = async () => {
 };
 const getBlog = async (id) => {
   const response = await axios.get(`${base_url}/blog/${id}`, config);
-
-  return response.data;
+  if(response.data) {
+    return response.data;
+  }
 };
 
 const blogService = {
