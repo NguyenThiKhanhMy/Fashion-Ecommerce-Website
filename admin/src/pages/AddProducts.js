@@ -19,7 +19,7 @@ let schema = yup.object().shape({
   name: yup.string().required("Tên sản phẩm không để trống"),
   describe: yup.string().required("Mô tả không để trống"),
   category: yup.string().required("Thể loại không để trống"),
-  // size: yup.array().min(1, "Kích cỡ không để trống").required("Kích cỡ không để trống"),
+  size: yup.array().min(1, "Kích cỡ không để trống").required("Kích cỡ không để trống"),
   price: yup.string().required("Giá không để trống"),
   material: yup.string().required("Chất liệu không để trống"),
 });
@@ -31,6 +31,7 @@ const AddProduct = () => {
   const getProductId = location.pathname.split("/")[3];
   const [images, setImages] = useState([]);
   const imgState = useSelector((state) => state.upload.images);
+  const pSizeState = useSelector((state) => state.pSize.pSizes);
   const productState = useSelector((state) => state.products);
   const pCatState = useSelector((state) => state.pCategory.pCategories);
   const {isSuccess,isError,isLoading,createProduct,productName,productDesc,productCategory,productImages,updatedProduct,productPrice, productSize, productMaterial} = productState;
@@ -47,6 +48,11 @@ const AddProduct = () => {
   useEffect(() => {
     dispatch(resetState());
     dispatch(getCategories());
+  }, []);
+
+  useEffect(() => {
+    dispatch(resetState());
+    dispatch(getSizes());
   }, []);
 
   useEffect(() => {
@@ -80,6 +86,7 @@ const AddProduct = () => {
       material: productMaterial || "",
       price: productPrice || "",
       images: "",
+      size: productSize || "",
     },
     validationSchema: schema,
     onSubmit: (values) => {
@@ -179,6 +186,23 @@ const AddProduct = () => {
           <div className="error">
             {formik.touched.price && formik.errors.price}
           </div> 
+
+          <Select 
+            className="py-3  mt-3"
+            name="size"
+            isMulti
+            options={pSizeState.map((i) => ({ value: i.title, label: i.title }))}
+            onChange={(selectedOptions) =>
+            formik.setFieldValue("size",selectedOptions.map((option) => option.value))}
+            onBlur={formik.handleBlur("size")}
+            value={pSizeState
+            .filter((i) => formik.values.size.includes(i.title))
+            .map((i) => ({ value: i.title, label: i.title }))}
+            classNamePrefix="react-select"
+          />
+          <div className="error">
+            {formik.touched.size && formik.errors.size}
+          </div>
 
           <div className="bg-white border-1 p-5 text-center mt-3">
             <Dropzone
