@@ -1,12 +1,12 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
-import crypto from "crypto"
+import crypto from "crypto";
 
 const userSchema = new mongoose.Schema(
   {
     username: {
       type: String,
-      required:  [true, "Vui lòng nhập tên tài khoản"],
+      required: [true, "Vui lòng nhập tên tài khoản"],
       trim: true,
       unique: true,
     },
@@ -16,22 +16,25 @@ const userSchema = new mongoose.Schema(
       minLength: [6, "Mật khẩu có ít nhất 6 chữ số"],
     },
     email: {
-        type: String,
-        required: [true, "Vui lòng nhập Email"],
-        unique: true,
+      type: String,
+      required: [true, "Vui lòng nhập Email"],
+      unique: true,
     },
-    
+  wishlist: [{
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: "products"
+  }],
     role: {
       type: String,
       default: "user",
     },
     isActive: {
       type: Boolean,
-      default: true
+      default: true,
     },
     gender: {
       type: Boolean,
-      default: true
+      default: true,
     },
     refreshToken: {
       type: String,
@@ -41,24 +44,23 @@ const userSchema = new mongoose.Schema(
     passwordResetExpires: Date,
   },
   { timestamps: true }
-  
 );
 
 userSchema.pre('save', async function(next) {
   const salt = await bcrypt.genSaltSync(10);
-  this.password = await bcrypt.hash(this.password,salt);
-  next()
-})
+  this.password = await bcrypt.hash(this.password, salt);
+  next();
+});
 
 userSchema.methods.isPasswordMatched = async function(comparePassword) {
   return await bcrypt.compare(comparePassword, this.password);
-}
+};
 
-userSchema.methods.createPasswordResetToken = async function () {
+userSchema.methods.createPasswordResetToken = async function() {
   const resetToken = crypto.randomBytes(20).toString("hex");
   //hash token and add to db
   this.passwordResetToken = crypto.createHash("sha256").update(resetToken).digest("hex");
-  this.passwordResetExpires = Date.now() + 15 * 60 * 1000; 
+  this.passwordResetExpires = Date.now() + 15 * 60 * 1000;
   return resetToken;
 };
 

@@ -98,6 +98,11 @@ h7{
   height: 16rem;
 }
 
+/*Product*/
+.product-text:hover {
+  text-decoration: underline;
+}
+
 /* Product Details */
 
 

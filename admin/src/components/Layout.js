@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import {AiOutlineDashboard,AiOutlineShoppingCart,AiOutlineUser,AiOutlineBgColors,} from "react-icons/ai";
 import { RiCouponLine } from "react-icons/ri";
+import { FaProductHunt } from "react-icons/fa";
+import { SiZend } from "react-icons/si";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
@@ -53,17 +55,17 @@ const MainLayout = () => {
             },
             {
               key: "Catalog",
-              icon: <AiOutlineShoppingCart className="fs-4" />,
+              icon: <FaProductHunt className="fs-4" />,
               label: "Sản phẩm",
               children: [
                 {
-                  key: "product",
-                  icon: <AiOutlineShoppingCart className="fs-4" />,
+                  key: "add-product",
+                  icon: <FaProductHunt className="fs-4" />,
                   label: "Thêm sản phẩm",
                 },
                 {
-                  key: "list-product",
-                  icon: <AiOutlineShoppingCart className="fs-4" />,
+                  key: "product-list",
+                  icon: <FaProductHunt className="fs-4" />,
                   label: "Danh sách sản phẩm",
                 },
                 {
@@ -75,6 +77,16 @@ const MainLayout = () => {
                   key: "add-product-category",
                   icon: <BiCategoryAlt className="fs-4" />,
                   label: "Thêm danh mục sản phẩm",
+                },
+                {
+                  key: "product-size-list",
+                  icon: <SiZend className="fs-4" />,
+                  label: "Danh sách size",
+                },
+                {
+                  key: "add-product-size",
+                  icon: <SiZend className="fs-4" />,
+                  label: "Thêm cỡ size",
                 },
               ],
             },

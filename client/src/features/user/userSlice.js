@@ -20,6 +20,16 @@ export const loginUserSlice = createAsyncThunk("user/login",async (userData, thu
   }
 );
 
+export const getUserWishlist = createAsyncThunk("user/login",async (userData, thunkAPI) => {
+  try {
+    return await userService.loginUserService(userData);
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error);
+  }
+}
+);
+
+
 const initialState = {
   user:"",
   isError: false,

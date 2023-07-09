@@ -12,7 +12,10 @@ import blogRoute from "./routes/blogRoute.js";
 import uploadRoute from "./routes/uploadRoute.js"
 import productCategoryRoute from "./routes/productCategoryRoute.js"
 import errorHandler from './middlewares/errorHandler.js'
-import blogCategoryRouter from"./routes/blogCategoryRoute.js";
+import blogCategoryRoute from"./routes/blogCategoryRoute.js";
+import productRoute from './routes/productRoute.js';
+import productSizeRoute from './routes/productSizeRoute.js';
+import wishlistRoute from './routes/wishlistRoute.js';
 
 //App
 const app = express();
@@ -33,11 +36,13 @@ connectDatabase();
 
 //Route
 app.use('/api/v1/user', userRoute);
+app.use("/api/v1/product", productRoute);
+app.use("/api/v1/productcategory", productCategoryRoute);
+app.use("/api/v1/productsize", productSizeRoute);
 app.use('/api/v1/upload', uploadRoute);
 app.use('/api/v1/blog', blogRoute);
-app.use("/api/v1/blogcategory", blogCategoryRouter);
-app.use("/api/v1/productcategory", productCategoryRoute);
-
+app.use("/api/v1/blogcategory", blogCategoryRoute);
+app.use("/api/v1/wishlist", wishlistRoute );
 //errorHandler
 app.use(errorHandler);
 

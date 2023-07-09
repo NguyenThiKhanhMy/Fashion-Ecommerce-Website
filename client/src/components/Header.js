@@ -59,7 +59,7 @@ const Header = () => {
                         <div className="row">
                             <div className="col d-flex" style={{gap: "12rem"}}>
                                 <NavLink className="text-dark" to="/">Hàng Mới Về</NavLink>
-                                <NavLink className="text-dark" to="/">Sản Phẩm</NavLink>
+                                <NavLink className="text-dark" to="/Product">Sản Phẩm</NavLink>
                                 <NavLink className="text-dark" to="/Blog">Bài Viết</NavLink>
                                 <NavLink className="text-dark" to="/About">Giới thiệu</NavLink>
                             </div>

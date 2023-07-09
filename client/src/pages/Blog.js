@@ -21,7 +21,7 @@ const Blog = () => {
                         {blogState?.map((item,index) => {
                             return (
                                 <div key={index}>
-                                <BlogCard id={item?._id} title={item?.title} description={item?.description} image ={item?.images[0].url}/> 
+                                <BlogCard id={item?._id} title={item?.title} description={item?.description} image ={item?.images && item.images[0]?.url}/> 
                             </div>
                             )
                             })

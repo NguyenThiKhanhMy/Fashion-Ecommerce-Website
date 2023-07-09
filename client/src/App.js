@@ -11,6 +11,7 @@ import BlogDetail from "./pages/BlogDetails";
 import WishList from "./pages/WishList";
 import ShoppingCart from "./pages/ShoppingCart";
 import ProductDetail from "./pages/ProductDetail";
+import Product from "./pages/Product";
 
 function App() {
   return (
@@ -23,10 +24,11 @@ function App() {
             <Route path= "Blog"  element= {<Blog />} />
             <Route path= "Login"  element= {<Login />} />
             <Route path= "Signup"  element= {<Signup />} />
-            <Route path= "BlogDetail"  element= {<BlogDetail />} />
+            <Route path= "Product"  element= {<Product />} />
+            <Route path= "Blog/:id"  element= {<BlogDetail />} />
             <Route path= "WishList"  element= {<WishList />} />
             <Route path= "ShoppingCart"  element= {<ShoppingCart />} />
-            <Route path= "ProductDetail"  element= {<ProductDetail />} />
+            <Route path= "Product/:id"  element= {<ProductDetail />} />
           </Route>
         </Routes>
       </BrowserRouter>

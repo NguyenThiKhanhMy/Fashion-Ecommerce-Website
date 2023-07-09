@@ -17,8 +17,15 @@ const loginUserService = async (userData) => {
   return response.data;
 };
 
+const getUserWishlist = async (userData) => {
+  const response = await axios.post(`${base_url}/user/wishlist`, userData);
+  if (response.data) {
+    return response.data;
+  }
+};
+
 const userService = {
-  loginUserService, registerUserService
+  loginUserService, registerUserService, getUserWishlist
 };
 
 export default userService;

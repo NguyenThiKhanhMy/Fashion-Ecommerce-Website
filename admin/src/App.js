@@ -9,6 +9,10 @@ import AddBlogCategory from "./pages/AddBlogCategory";
 import AddProductCategory from "./pages/AddProductCategory";
 import BlogCategoryList from "./pages/BlogCategoryList";
 import ProductCategoryList from "./pages/ProductCategoryList";
+import ProductList from "./pages/ProductList";
+import ProductSizeList from "./pages/ProductSizeList";
+import AddProductSize from "./pages/AddProductSize";
+import AddProduct from "./pages/AddProducts";
 import Layout from "./components/Layout";
 
 function App() {
@@ -28,6 +32,12 @@ function App() {
           <Route path="product-category-list" element={<ProductCategoryList />} />
           <Route path="add-product-category/" element={<AddProductCategory />} />
           <Route path="add-product-category/:id" element={<AddProductCategory />} />
+          <Route path="product-size-list" element={<ProductSizeList />} />
+          <Route path="add-product-size/" element={<AddProductSize />} />
+          <Route path="add-product-size/:id" element={<AddProductSize />} />
+          <Route path="add-product/" element={<AddProduct />} />
+          <Route path="add-product/:id" element={<AddProduct />} />
+          <Route path="product-list/" element={<ProductList />} />
         </Route>
       </Routes>
     </Router>
